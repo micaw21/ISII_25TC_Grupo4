@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.stanreybackend.stanreyapi.DTO.UsuarioDTO;
 import com.stanreybackend.stanreyapi.entity.Usuario;
 import com.stanreybackend.stanreyapi.repository.PerfilRepository;
+import com.stanreybackend.stanreyapi.repository.PersonaRepository;
 import com.stanreybackend.stanreyapi.repository.UsuarioRepository;
 
 @Service
@@ -20,9 +21,13 @@ public class UsuarioService {
     @Autowired
     private PerfilRepository perfilRepository;
     @Autowired
+    private PersonaRepository personaRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     public String addUsuario(UsuarioDTO usuarioDTO) {
+
+        personaRepository.save(usuarioDTO.getPersona());
 
         Usuario usuario = new Usuario(
                 usuarioDTO.getIdUsuario(),

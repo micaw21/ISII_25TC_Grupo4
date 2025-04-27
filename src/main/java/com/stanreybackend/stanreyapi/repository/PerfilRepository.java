@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.stanreybackend.stanreyapi.entity.Perfil;
 
-
-
 @EnableJpaRepositories
 @Repository
 public interface PerfilRepository extends JpaRepository<Perfil, Long>{
