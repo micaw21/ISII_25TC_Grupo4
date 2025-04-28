@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+target/
+backend/target/
+frontend/node_modules/
+*.log
