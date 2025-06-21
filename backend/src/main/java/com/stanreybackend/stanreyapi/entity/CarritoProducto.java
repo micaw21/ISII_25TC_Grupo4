@@ -9,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,7 +37,7 @@ public class CarritoProducto {
     @Column(nullable = false, name = "precio_unitario")
     private Double precioUnitario;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "carrito_id", referencedColumnName = "id_carrito", nullable = false)
     private Carrito carrito;
     
