@@ -7,8 +7,6 @@ package com.stanreybackend.stanreyapi.repository;
  import org.springframework.stereotype.Repository;
  
  import com.stanreybackend.stanreyapi.entity.Producto;
- import java.util.List;
- 
  
  @EnableJpaRepositories
  @Repository
