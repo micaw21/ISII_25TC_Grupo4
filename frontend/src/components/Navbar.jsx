@@ -19,6 +19,9 @@ export const Navbar = () => {
     return (
         <nav className="navbar">
             <Link className="logo">STANREY®</Link>
+            {user.idUsuario == '' ? (<></>) : (
+                <span style={{ color: 'white' }}>Bienvenido <b>{user.usuario}</b></span>
+            )}
             <ul>
                 <li>
                     <Link to='/catalogo'>Catalogo</Link>
@@ -27,21 +30,27 @@ export const Navbar = () => {
                     <li>
                         <Link to='/admin/productos'>Admin</Link>
                     </li>
+                ) :
+                    <li>
+                        <Link to={'/carrito'}><LuShoppingCart /></Link>
+                    </li>
+                }
+                {user.idUsuario == '' ? (<>
+                    <li>
+                        <Link to={'/login'} className="nav-button">LogIn</Link>
+                    </li>
+                    <li>
+                        <Link to={'/signup'} className="nav-button">SignUp</Link>
+                    </li>
+                </>
                 ) : (
-                    <></>
+                    <>
+                        <li>
+                            <Link onClick={(e) => handleLogout(e)} className="nav-button">Logout</Link>
+                        </li>
+                    </>
                 )
                 }
-                <li>
-                    {user.idUsuario == '' ? (
-                        <Link to={'/login'} className="nav-button">Login</Link>
-                    ) : (
-                        <Link onClick={(e) => handleLogout(e)} className="nav-button">Logout</Link>
-                    )
-                    }
-                </li>
-                <li>
-                    <Link to={'/carrito'}><LuShoppingCart /></Link>
-                </li>
             </ul>
         </nav>
     )
