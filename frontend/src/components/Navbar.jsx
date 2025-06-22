@@ -1,14 +1,13 @@
-import { useContext } from "react";
-import { LuShoppingCart } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
+import { LuShoppingCart, LuUser } from "react-icons/lu";
 
 export const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
 
     const handleLogout = async (e) => {
         e.preventDefault();
-
         const success = await logout();
 
         if (success) {
@@ -31,9 +30,14 @@ export const Navbar = () => {
                         <Link to='/admin/productos'>Admin</Link>
                     </li>
                 ) :
+                    <>
                     <li>
                         <Link to={'/carrito'}><LuShoppingCart /></Link>
                     </li>
+                    <li>
+                        <Link to={'/historial'}>Historial</Link>
+                    </li>
+                    </>
                 }
                 {user.idUsuario == '' ? (<>
                     <li>

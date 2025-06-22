@@ -9,9 +9,10 @@ const AdminDashboard = () => {
     const { user } = useContext(AuthContext);
     const [productos, setProductos] = useState([]);
     const [categorias, setCategorias] = useState([]);
-
+    
+    const [productoEditando, setProductoEditando] = useState(null);
     const [formMode, setFormMode] = useState('');
-
+    
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -29,7 +30,7 @@ const AdminDashboard = () => {
         fetchProductos();
         fetchCategorias();
     }, []);
-
+    // luego de seleccionar "Administrar Productos", este metodo obtiene todos los productos mediante getAllProductos() definido en ProductoController();
     const fetchProductos = async () => {
         try {
             const response = await api.get('/producto/lista');
@@ -49,27 +50,31 @@ const AdminDashboard = () => {
             setFormMode('');
         }
     }
-
+    // luego de seleccionar el producto a modificar, se llama a este metodo para manejar el cambio de estado del producto seleccionado, este metodo hace uso de bajaByIdProducto(id);
     const handleStateChange = async (e, prod) => {
         e.preventDefault();
 
-        if (prod.estado == 1) {
-            try {
-                const response = await api.put('/it_admin/producto/baja/' + prod.idProducto);
-                fetchProductos();
-            } catch (error) {
-                setError('Error al dar de baja: ' + prod.nombre);
-            }
-        } else {
-            try {
-                const response = await api.put('/it_admin/producto/alta/' + prod.idProducto);
-                fetchProductos();
-            } catch (error) {
-                setError('Error al dar de baja: ' + prod.nombre);
-            }
-        }
-    }
+        const confirmacion = window.confirm(
+            prod.estado === 1
+                ? `¿Estás seguro de dar de baja el producto "${prod.nombre}"?`
+                : `¿Estás seguro de dar de alta el producto "${prod.nombre}"?`
+        );
 
+        if (!confirmacion) return;
+
+        try {
+            const endpoint = prod.estado === 1
+                ? '/it_admin/producto/baja/' + prod.idProducto
+                : '/it_admin/producto/alta/' + prod.idProducto;
+
+            await api.put(endpoint);
+            fetchProductos();
+        } catch (error) {
+            setError(`Error al cambiar estado de: ${prod.nombre}`);
+        }
+    };
+
+    
     return (
         <div className="admindashboard">
             <h2>Admin Dashboard <br></br>
@@ -123,6 +128,15 @@ const AdminDashboard = () => {
                                 <td>
                                     <button onClick={(e) => handleStateChange(e, prod)}
                                         className='baja-button'>Baja</button>
+                                    <button
+                                        className='modificar-button'
+                                        onClick={() => {
+                                            setProductoEditando(prod);
+                                            setFormMode('-open');
+                                        }}
+                                    >
+                                        Modificar
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -169,15 +183,26 @@ const AdminDashboard = () => {
                                 <td>
                                     <button onClick={(e) => handleStateChange(e, prod)}
                                         className='alta-button'>Alta</button>
+                                        <button
+                                        className='modificar-button'
+                                        onClick={() => {
+                                            setProductoEditando(prod);
+                                            setFormMode('-open');
+                                        }}
+                                    >
+                                        Modificar
+                                    </button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>)}
 
-            <ProductoForm formFunctions={[formMode, setFormMode, setProductos, fetchProductos]} ></ProductoForm>
+            <ProductoForm
+                formFunctions={[formMode, setFormMode, setProductos, fetchProductos]}
+                productoEditando={productoEditando}
+                setProductoEditando={setProductoEditando}
+            />
         </div >
     );
 };
-
-export default AdminDashboard;
