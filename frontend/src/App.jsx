@@ -1,10 +1,14 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, AuthContext } from './context/AuthContext';
 import { useContext } from 'react';
-import { Login } from './pages/Login';
-import AdminDashboard from './pages/AdminDashboard';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import './App.css';
+import { Footer } from './components/Footer';
 import { Navbar } from './components/Navbar';
-import './App.css'
+import { AuthContext, AuthProvider } from './context/AuthContext';
+import AdminDashboard from './pages/AdminDashboard';
+import { Carrito } from './pages/Carrito';
+import { Catalogo } from './pages/Catalogo';
+import { Login } from './pages/Login';
+import { Signin } from './pages/Signin';
 
 const PrivateRoute = ({ children, requiredProfileId }) => {
   const { isAuthenticated, user } = useContext(AuthContext);
@@ -14,7 +18,7 @@ const PrivateRoute = ({ children, requiredProfileId }) => {
   }
 
   if (requiredProfileId && user.perfilId !== requiredProfileId) {
-    return <Navigate to="/" />;
+    // return <Navigate to="/" />;
   }
 
   return children;
@@ -26,6 +30,9 @@ function App() {
       <BrowserRouter>
         <Navbar></Navbar>
         <Routes>
+          <Route path="/carrito" element={<Carrito />} />
+          <Route path="/catalogo" element={<Catalogo />} />
+          <Route path="/signin" element={<Signin />} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/admin/productos"
@@ -37,6 +44,7 @@ function App() {
           />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        <Footer></Footer>
       </BrowserRouter>
     </AuthProvider>
   );
