@@ -13,8 +13,7 @@ export const Signup = () => {
             dni: '',
             nombre: '',
             apellido: '',
-            email: '',
-            telefono: ''
+            email: ''
         }
     });
 
@@ -81,10 +80,6 @@ export const Signup = () => {
                 <div>
                     <label>Email:</label>
                     <input type="email" name="email" value={formData.persona.email} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label>Teléfono:</label>
-                    <input type="text" name="telefono" value={formData.persona.telefono} onChange={handleChange} />
                 </div>
                 <button type="submit">Registrarse</button>
             </form>

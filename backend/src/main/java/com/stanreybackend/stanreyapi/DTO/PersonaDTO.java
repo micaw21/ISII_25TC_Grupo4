@@ -7,18 +7,16 @@ public class PersonaDTO {
     private String apellido;
 
     private String email;
-    private Integer telefono;
     // private Direccion direccion;
     
     public PersonaDTO() {
     }
 
-    public PersonaDTO(Long dni, String nombre, String apellido, String email, Integer telefono) {
+    public PersonaDTO(Long dni, String nombre, String apellido, String email) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
-        this.telefono = telefono;
     }
 
     public Long getDni() {
@@ -52,13 +50,4 @@ public class PersonaDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public Integer getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(Integer telefono) {
-        this.telefono = telefono;
-    }
-
 }

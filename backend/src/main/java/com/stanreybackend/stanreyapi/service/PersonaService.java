@@ -22,9 +22,7 @@ public class PersonaService {
                 personaDTO.getDni(),
                 personaDTO.getNombre(),
                 personaDTO.getApellido(),
-                personaDTO.getEmail(),
-                personaDTO.getTelefono());
-
+                personaDTO.getEmail());
         personaRepository.save(persona);
 
         return persona.getDni().toString();
