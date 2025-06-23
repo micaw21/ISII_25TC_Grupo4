@@ -7,7 +7,6 @@ export const ProductoForm = ({ formFunctions, productoEditando, setProductoEdita
     const [formMode, setFormMode, setProductos, fetchProductos] = formFunctions;
     const [categorias, setCategorias] = useState([]);
     const [formData, setFormData] = useState({ ...Producto });
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -54,7 +53,7 @@ export const ProductoForm = ({ formFunctions, productoEditando, setProductoEdita
         } else {
             setFormData(prev => ({
                 ...prev,
-                [name]: valueAdd
+                [name]: value
             }));
         }
     };
@@ -75,7 +74,7 @@ export const ProductoForm = ({ formFunctions, productoEditando, setProductoEdita
                 ...prev,
                 url_imagen: res.data
             }));
-            } catch (error) {
+        } catch (error) {
             console.error('Error al subir la imagen:', error);
             setError('Error al subir la imagen');
         }
@@ -104,6 +103,7 @@ export const ProductoForm = ({ formFunctions, productoEditando, setProductoEdita
                 const response = await api.post('/it_admin/producto/save', productoData);
                 setProductos(prev => [...prev, response.data]);
             }
+
             setFormData({ ...Producto });
             setProductoEditando(null);
             setFormMode('');
@@ -116,11 +116,11 @@ export const ProductoForm = ({ formFunctions, productoEditando, setProductoEdita
         }
     };
 
-        const cancelarFormulario = () => {
-            setFormMode('');
-            setProductoEditando(null);
-            setFormData({ ...Producto });
-        };
+    const cancelarFormulario = () => {
+        setFormMode('');
+        setProductoEditando(null);
+        setFormData({ ...Producto });
+    };
 
     return (
         <div className={"floating-form" + formMode}>

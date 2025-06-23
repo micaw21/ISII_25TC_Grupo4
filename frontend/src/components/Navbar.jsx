@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom"
-import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
-import { LuShoppingCart, LuUser } from "react-icons/lu";
+import { LuShoppingCart } from "react-icons/lu";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 export const Navbar = () => {
     const { user, logout } = useContext(AuthContext);

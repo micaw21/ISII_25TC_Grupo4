@@ -1,15 +1,15 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, AuthContext } from './context/AuthContext';
 import { useContext } from 'react';
-import { Login } from './pages/Login';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import './App.css';
+import { Footer } from './components/Footer';
+import { Navbar } from './components/Navbar';
+import { AuthContext, AuthProvider } from './context/AuthContext';
+import AdminDashboard from './pages/AdminDashboard';
 import { Carrito } from './pages/Carrito';
 import { Catalogo } from './pages/Catalogo';
-import AdminDashboard from './pages/AdminDashboard';
-import { Navbar } from './components/Navbar';
-import './App.css'
-import { Footer } from './components/Footer';
-import { Signup } from './pages/SignUp';
 import { Historial } from './pages/Historial';
+import { Login } from './pages/Login';
+import { Signup } from './pages/SignUp';
 
 const PrivateRoute = ({ children, requiredProfileId }) => {
   const { isAuthenticated, user } = useContext(AuthContext);
@@ -59,3 +59,5 @@ function App() {
     </AuthProvider>
   );
 }
+
+export default App;
