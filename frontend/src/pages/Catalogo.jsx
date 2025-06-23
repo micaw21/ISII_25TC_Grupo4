@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import api from '../api/api';
 import { AuthContext } from '../context/AuthContext';
 
@@ -27,27 +27,42 @@ export const Catalogo = () => {
     }, []);
 
     const handleAgregarCarrito = async (productoId, precio) => {
-        if (!isAuthenticated) {
-            setError('Debes iniciar sesión para agregar productos al carrito');
-            return;
-        }
+    if (!isAuthenticated) {
+        setError('Debes iniciar sesión para agregar productos al carrito');
+        return;
+    }
 
-        try {
-            let carrito = await api.get(`/carrito/usuario/${user.idUsuario}`);
-            let carritoId = carrito.data?.idCarrito;
+    let carritoId;
 
-            if (!carritoId) {
-                const carritoDTO = {
-                    fechaCreacion: new Date().toISOString(),
-                    estado: 1,
-                    usuarioId: user.idUsuario
-                };
+    try {
+        // Intentar obtener el carrito
+        const carrito = await api.get(`/carrito/usuario/${user.idUsuario}`);
+        carritoId = carrito.data?.idCarrito;
+    } catch (error) {
+        // Si no existe, crearlo
+        if (error.response && error.response.status === 404) {
+            const carritoDTO = {
+                fechaCreacion: new Date().toISOString().slice(0, 19),
+                estado: 1,
+                usuarioId: user.idUsuario
+            };
+            try {
                 const response = await api.post('/carrito/save', carritoDTO);
                 carritoId = response.data;
+            } catch (e) {
+                setError('Error al crear el carrito: ' + (e.response?.data?.message || e.message));
+                return;
             }
+        } else {
+            setError('Error al buscar el carrito: ' + (error.response?.data?.message || error.message));
+            return;
+        }
+    }
 
+    //Agregar el producto al carrito
+        try {
             const carritoProductoDTO = {
-                fechaCreacion: new Date().toISOString(),
+                fechaCreacion: new Date().toISOString().slice(0, 19),
                 cantidad: 1,
                 precioUnitario: precio,
                 carritoId,
@@ -56,7 +71,6 @@ export const Catalogo = () => {
             await api.post('/carrito/agregar-producto', carritoProductoDTO);
             alert('Producto agregado al carrito');
         } catch (error) {
-            console.error('Error al agregar producto al carrito:', error);
             setError('Error al agregar producto al carrito: ' + (error.response?.data?.message || error.message));
         }
     };
