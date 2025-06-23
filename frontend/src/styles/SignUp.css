@@ -1,0 +1,36 @@
+.signup {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+    form {
+      align-content: center;
+      height: 70%;
+      width: 20%;
+      padding: 25px 50px;
+      color: #f4f4f4;
+      background-color: #15291f;
+      border-radius: 15px;
+      box-shadow: 0 4px 16px #00000033;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+  
+        input {
+          padding: 10px;
+          background-color: #222623;
+        }
+      }
+  
+      button {
+        margin: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+  }

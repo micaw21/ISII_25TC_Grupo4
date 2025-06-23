@@ -1,6 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useContext, useEffect, useState } from 'react';
 import api from '../api/api';
+import { AuthContext } from '../context/AuthContext';
+import '../styles/Carrito.css';
 
 export const Carrito = () => {
     const { user, isAuthenticated } = useContext(AuthContext);

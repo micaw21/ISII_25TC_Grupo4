@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/api';
+import '../styles/Signup.css';
 
 export const Signup = () => {
     const navigate = useNavigate();
@@ -54,30 +55,30 @@ export const Signup = () => {
     };
 
     return (
-        <div>
-            <h2>Registro</h2>
+        <div className='signup'>
+            <h1>Registro</h1>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className='form-group'>
                     <label>Usuario:</label>
                     <input type="text" name="usuario" value={formData.usuario} onChange={handleChange} required />
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>Contraseña:</label>
                     <input type="password" name="password" value={formData.password} onChange={handleChange} required />
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>DNI:</label>
                     <input type="text" name="dni" value={formData.persona.dni} onChange={handleChange} required />
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>Nombre:</label>
                     <input type="text" name="nombre" value={formData.persona.nombre} onChange={handleChange} required />
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>Apellido:</label>
                     <input type="text" name="apellido" value={formData.persona.apellido} onChange={handleChange} required />
                 </div>
-                <div>
+                <div className='form-group'>
                     <label>Email:</label>
                     <input type="email" name="email" value={formData.persona.email} onChange={handleChange} required />
                 </div>
