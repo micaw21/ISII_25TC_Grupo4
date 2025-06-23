@@ -10,6 +10,8 @@ import com.stanreybackend.stanreyapi.entity.Carrito;
 import com.stanreybackend.stanreyapi.repository.CarritoRepository;
 import com.stanreybackend.stanreyapi.repository.UsuarioRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CarritoService {
 
@@ -19,6 +21,7 @@ public class CarritoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Transactional
     public String addCarrito(CarritoDTO carritoDTO) {
         Carrito carrito = new Carrito(
                 carritoDTO.getIdCarrito(),

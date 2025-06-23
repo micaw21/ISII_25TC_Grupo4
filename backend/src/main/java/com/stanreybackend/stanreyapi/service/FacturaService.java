@@ -1,6 +1,5 @@
 package com.stanreybackend.stanreyapi.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class FacturaService {
 
     @Transactional
     public String addFactura(FacturaDTO facturaDTO, List<DetalleFacturaDTO> detallesDTO) {
-        // Validar stock
+        // Validar Producto o stock disponible
         for (DetalleFacturaDTO detalle : detallesDTO) {
             Producto producto = productoRepository.findByIdProducto(detalle.getProductoId()).orElseThrow(
                     () -> new IllegalArgumentException("Producto no encontrado"));
@@ -55,16 +54,21 @@ public class FacturaService {
 
         facturaRepository.save(factura);
 
+        // Por cada DetalleFactura asocia el detalle a la Factura
         for (DetalleFacturaDTO detalleDTO : detallesDTO) {
             detalleDTO.setFacturaId(factura.getIdFactura());
             detalleFacturaService.addDetalleFactura(detalleDTO);
+            
             Producto producto = productoRepository.findByIdProducto(detalleDTO.getProductoId()).orElse(null);
+            
+            // Descuenta el stock del Producto tras efectuar la compra
             if (producto != null) {
                 producto.setStock(producto.getStock() - detalleDTO.getCantidad());
                 productoRepository.save(producto);
             }
         }
 
+        // Vacia carrito
         Long carritoId = facturaDTO.getCarritoId();
         if (carritoId != null) {
             carritoProductoService.deleteAllByCarritoId(carritoId);
@@ -99,6 +103,7 @@ public class FacturaService {
         return factura != null ? factura.getIdFactura().toString() : null;
     }
 
+    @Transactional
     public String updateFactura(Long idFactura, FacturaDTO facturaDTO) {
         Factura factura = facturaRepository.findByIdFactura(idFactura).orElse(null);
         if (factura != null) {

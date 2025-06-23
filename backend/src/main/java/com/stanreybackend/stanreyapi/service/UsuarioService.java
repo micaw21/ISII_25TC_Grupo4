@@ -13,6 +13,8 @@ import com.stanreybackend.stanreyapi.repository.PerfilRepository;
 import com.stanreybackend.stanreyapi.repository.PersonaRepository;
 import com.stanreybackend.stanreyapi.repository.UsuarioRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UsuarioService {
 
@@ -25,8 +27,8 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Transactional
     public String addUsuario(UsuarioDTO usuarioDTO) {
-
         personaRepository.save(usuarioDTO.getPersona());
 
         Usuario usuario = new Usuario(
@@ -92,7 +94,7 @@ public class UsuarioService {
 
     public List<Usuario> findAll() {
 
-        List<Usuario> usuarios = new ArrayList();
+        List<Usuario> usuarios = new ArrayList<Usuario>();
         usuarios = usuarioRepository.findAll();
 
         return usuarios;

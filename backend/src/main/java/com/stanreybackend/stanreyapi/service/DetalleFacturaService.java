@@ -11,6 +11,8 @@ import com.stanreybackend.stanreyapi.repository.DetalleFacturaRepository;
 import com.stanreybackend.stanreyapi.repository.FacturaRepository;
 import com.stanreybackend.stanreyapi.repository.ProductoRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class DetalleFacturaService {
 
@@ -23,6 +25,7 @@ public class DetalleFacturaService {
     @Autowired
     private FacturaRepository facturaRepository;
 
+    @Transactional
     public String addDetalleFactura(DetalleFacturaDTO detalleFacturaDTO) {
         DetalleFactura detalleFactura = new DetalleFactura(
                 detalleFacturaDTO.getIdDetalleFactura(),

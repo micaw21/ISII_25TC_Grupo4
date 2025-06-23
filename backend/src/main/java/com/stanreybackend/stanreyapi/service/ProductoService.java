@@ -10,6 +10,8 @@ import com.stanreybackend.stanreyapi.entity.Producto;
 import com.stanreybackend.stanreyapi.repository.CategoriaRepository;
 import com.stanreybackend.stanreyapi.repository.ProductoRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ProductoService {
 
@@ -18,8 +20,8 @@ public class ProductoService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    @Transactional
     public String addProducto(ProductoDTO productoDTO) {
-
         Producto producto = new Producto(
                 productoDTO.getIdProducto(),
                 productoDTO.getNombre(),
@@ -61,6 +63,7 @@ public class ProductoService {
         return producto.getIdProducto().toString();
     }
 
+    @Transactional
     public String updateProducto(Long id_producto, ProductoDTO productoDTO) {
         Producto producto = productoRepository.findByIdProducto(id_producto).orElse(null);
         producto.setNombre(productoDTO.getNombre());

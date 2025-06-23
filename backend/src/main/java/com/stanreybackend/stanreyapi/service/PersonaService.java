@@ -10,14 +10,16 @@ import com.stanreybackend.stanreyapi.DTO.PersonaDTO;
 import com.stanreybackend.stanreyapi.entity.Persona;
 import com.stanreybackend.stanreyapi.repository.PersonaRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PersonaService {
 
     @Autowired
     private PersonaRepository personaRepository;
 
+    @Transactional
     public String addPersona(PersonaDTO personaDTO) {
-
         Persona persona = new Persona(
                 personaDTO.getDni(),
                 personaDTO.getNombre(),
@@ -30,7 +32,7 @@ public class PersonaService {
 
     public List<Persona> findAll() {
 
-        List<Persona> personas = new ArrayList();
+        List<Persona> personas = new ArrayList<Persona>();
         personas = personaRepository.findAll();
 
         return personas;

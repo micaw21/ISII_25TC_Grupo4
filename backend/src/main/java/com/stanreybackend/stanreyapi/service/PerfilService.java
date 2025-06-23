@@ -10,12 +10,15 @@ import com.stanreybackend.stanreyapi.DTO.PerfilDTO;
 import com.stanreybackend.stanreyapi.entity.Perfil;
 import com.stanreybackend.stanreyapi.repository.PerfilRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PerfilService {
 
     @Autowired
     private PerfilRepository perfilRepository;
 
+    @Transactional
     public String addPerfil(PerfilDTO perfilDTO) {
 
         Perfil perfil = new Perfil(
@@ -29,7 +32,7 @@ public class PerfilService {
 
     public List<Perfil> findAll() {
 
-        List<Perfil> perfiles = new ArrayList();
+        List<Perfil> perfiles = new ArrayList<Perfil>();
         perfiles = perfilRepository.findAll();
 
         return perfiles;

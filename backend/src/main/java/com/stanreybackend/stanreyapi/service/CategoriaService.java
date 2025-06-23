@@ -8,6 +8,8 @@ package com.stanreybackend.stanreyapi.service;
  import com.stanreybackend.stanreyapi.DTO.CategoriaDTO;
  import com.stanreybackend.stanreyapi.entity.Categoria;
  import com.stanreybackend.stanreyapi.repository.CategoriaRepository;
+
+import jakarta.transaction.Transactional;
  
  @Service
  public class CategoriaService {
@@ -15,6 +17,7 @@ package com.stanreybackend.stanreyapi.service;
      @Autowired
      private CategoriaRepository categoriaRepository;
  
+     @Transactional
      public String addCategoria(CategoriaDTO categoriaDTO) {
  
          Categoria categoria = new Categoria(
