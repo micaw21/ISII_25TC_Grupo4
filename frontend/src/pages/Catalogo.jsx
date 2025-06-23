@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import api from '../api/api';
 import { AuthContext } from '../context/AuthContext';
+import '../styles/Catalogo.css';
+
 
 export const Catalogo = () => {
     const { user, isAuthenticated } = useContext(AuthContext);
@@ -76,7 +78,9 @@ export const Catalogo = () => {
     };
 
     return (
-        <div className='catalogo'>
+        <div>
+            <h1 className='catalogo-title'>Catálogo</h1>
+            <div className='catalogo'>
             {error && <p className="error-label">{error}</p>}
             {productos.filter(p => p.estado === 1).map((prod) => (
                 <div className='producto' key={prod.idProducto}>
@@ -93,16 +97,23 @@ export const Catalogo = () => {
                             <span className='precio'>$ {prod.precio}</span> <br />
                             {prod.stock > 0 ? `Stock: ${prod.stock}` : 'Sin stock'}
                         </p>
-                        <button
-                            className='btn-comprar'
-                            disabled={prod.stock === 0}
-                            onClick={() => handleAgregarCarrito(prod.idProducto, prod.precio)}
-                        >
-                            {prod.stock > 0 ? 'Agregar al carrito' : 'Sin stock'}
-                        </button>
+                        {user && user.perfilId === 1 ? (
+                            <button className='btn-comprar' disabled>
+                                Solo clientes pueden comprar
+                            </button>
+                        ) : (
+                            <button
+                                className='btn-comprar'
+                                disabled={prod.stock === 0}
+                                onClick={() => handleAgregarCarrito(prod.idProducto, prod.precio)}
+                            >
+                                {prod.stock > 0 ? 'Agregar al carrito' : 'Sin stock'}
+                            </button>
+                        )}
                     </div>
                 </div>
             ))}
+            </div>
         </div>
     );
 };

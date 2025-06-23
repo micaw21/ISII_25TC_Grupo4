@@ -20,7 +20,7 @@ export const Navbar = () => {
         <nav className="navbar">
             <Link className="logo">STANREY®</Link>
             {user != null ? (
-                <span style={{ color: 'white' }}>Bienvenido <b>{user.usuario}</b></span>
+                <span style={{ color: 'white', marginLeft: '120px' }}>Bienvenido <b>{user.usuario}</b></span>
             ) : (
                 <>
                 </>

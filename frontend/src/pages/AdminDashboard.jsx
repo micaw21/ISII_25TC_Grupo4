@@ -1,7 +1,7 @@
-import { useEffect, useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import api from '../api/api';
-import { AuthContext } from '../context/AuthContext';
 import { ProductoForm } from '../components/ProductoForm';
+import { AuthContext } from '../context/AuthContext';
 import '../styles/AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -90,7 +90,7 @@ const AdminDashboard = () => {
             {activeTab === 'productos' && (
                 <>
                     <div className="options">
-                        <button onClick={() => {
+                        <button className='agregarProd' onClick={() => {
                             setFormMode('-open');
                             setProductoEditando(null);
                         }}>+ Agregar Producto</button>

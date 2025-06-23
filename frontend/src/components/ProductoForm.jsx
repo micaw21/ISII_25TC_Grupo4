@@ -160,12 +160,12 @@ export const ProductoForm = ({ formFunctions, productoEditando, setProductoEdita
                 <div className="form-group">
                     <label>Imagen</label>
                     <input type="file" name="imagen" onChange={handleFileChange} />
-                    {formData.url_imagen && (
-                        <p><small>Imagen actual: <em>{formData.url_imagen}</em></small></p>
-                    )}
+                        {formData.url_imagen && (
+                            <p><small>Imagen actual: <em>{formData.url_imagen}</em></small></p>
+                        )}
                 </div>
-                <button type="button" onClick={cancelarFormulario}>Cancelar</button>
-                <button type="submit" disabled={loading}>
+                <button className="cancelar-button" type="button" onClick={cancelarFormulario}>Cancelar</button>
+                <button className="submit-button" type="submit" disabled={loading}>
                     {loading ? 'Guardando...' : productoEditando ? 'Modificar Producto' : 'Agregar Producto'}
                 </button>
             </form>

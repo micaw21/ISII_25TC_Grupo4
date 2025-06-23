@@ -85,6 +85,42 @@
     }
 }
 
+.ver-detalle-button {
+    background-color: #326048;
+    color: #fffaf6;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;   
+    cursor: pointer;
+}
+
+.agregarProd {
+    background-color: #326048; 
+    color: #fffaf6;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 0.1s all ease-in;
+}
+
+.submit-button {
+    background-color: #326048;
+    color: #fffaf6;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.cancelar-button {
+    background-color: #d85b5b;
+    color: #fffaf6;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+}
+
 .floating-form {
     position: fixed;
     top: 50%;

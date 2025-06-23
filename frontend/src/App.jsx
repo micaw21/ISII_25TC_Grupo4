@@ -30,31 +30,33 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Navbar></Navbar>
-        <Routes>
-          <Route path="/historial" element={<Historial />} />
-          <Route path="/catalogo" element={<Catalogo />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/carrito"
-            element={
-              <PrivateRoute requiredProfileId={3}>
-                <Carrito />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/admin/productos"
-            element={
-              <PrivateRoute requiredProfileId={1}>
-                <AdminDashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route path="*" element={<Navigate to="/catalogo" />} />
-        </Routes>
-        <Footer></Footer>
+        <div className="app-container">
+          <Navbar></Navbar>
+          <Routes>
+            <Route path="/historial" element={<Historial />} />
+            <Route path="/catalogo" element={<Catalogo />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/carrito"
+              element={
+                <PrivateRoute requiredProfileId={3}>
+                  <Carrito />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/admin/productos"
+              element={
+                <PrivateRoute requiredProfileId={1}>
+                  <AdminDashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/catalogo" />} />
+          </Routes>
+          <Footer />
+        </div>
       </BrowserRouter>
     </AuthProvider>
   );
